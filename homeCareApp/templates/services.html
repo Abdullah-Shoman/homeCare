@@ -1,134 +1,101 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.122.0">
-    <title>Home Nursing Care</title>
-    <link rel="stylesheet" href="{% static 'css/services_style.css'%}">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
-<body>
-    <header id="bg-header">
-        <nav id="bg-header" class="navbar navbar-expand-md navbar-dark fixed-top">
-        <div id="bg-header" class="container-fluid">
-            <a class="navbar-brand" href="#">Home Nursing Care</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">about us</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="#">our services</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="#">career</a>
-                </li>   
-            </ul>
-            <form class="login-flex">
-                <button class="btn btn-light">login</button>
-            </form>
-            </div>
+{%extends 'index.html'%}
+{%load static %}
+{% block extraHeadTag%}
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,900&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="{% static 'fonts/icomoon/style.css ' %}">
+
+<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css'%}">
+
+<link rel="stylesheet" href="{%static 'css/animate.css'%}">
+
+
+<link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+
+
+<link rel="stylesheet" href="{%static 'css/style2.css'%}">
+{%endblock%}
+
+
+{%block content%}
+<div class="content">
+    
+    <div class="container">
+        <h2 class="my-5 text-center">Home Nursing Care</h2>
+
+        <div class="d-flex carousel-nav">
+            <a href="#" class="col active">Home Nursing care</a>
+            <a href="#" class="col">Physical Therapy</a>
+            <a href="#" class="col">Special Needs</a>
         </div>
-        </nav>
-    </header>
-    <hr>
-    <p>Home Nursing Care </p>
+
+
+        <div class="owl-carousel owl-1">
+
+            <div class="media-29101 d-md-flex w-100">
+                <div class="img">
+                <img src="{%static 'images/nurse.jpg'%}" alt="Image" class="img-fluid">
+            </div>
+            <div class="text">
+                <a class="category d-block mb-4" href="#">Nursing &mdash;Care </a>
+                <h2><a href="#">Home Nursing Care</a></h2>
+                <p>Home nursing care is health care or supportive care provided by a professional caregiver in the individual home where the patient or client is living, as opposed to care provided in group accommodations like clinics or nursing home. 
+                9 Reasons to Consider Home Nursing Care :</p>
+                <ul class="list">
+                    <li>Round the Clock Presence</li>
+                    <li>Supports a healthy daily routine</li>
+                    <li>Experienced Home Patient Care Services</li>
+                    <li>Constant Check on Nutrition and Diet</li>
+                    <li>Medication Management</li>
+                    <li>Healthy Social Interaction</li>
+                    <li>Better Medical Outcomes</li>
+                    <li>Focus on One-on-one Support</li>
+                    <li>Affordable Choice</li>
+                    </ul>
+                    <button class="button button2">Show More.</button>
+            </div>
+            </div> <!-- .item -->
+
+            <div class="media-29101 d-md-flex w-100">
+            <div class="img">
+                <img src="{%static 'images/therapy.jpg'%}" alt="Image" class="img-fluid">
+            </div>
+            <div class="text">
+                <a class="category d-block mb-4" href="#">Physical &mdash; Care</a>
+                <h2><a href="#">Physical Therapy</a></h2>
+                <p>Physical therapy is a common treatment that can help you recover after an injury or surgery, or manage symptoms from a health condition that affects how you move. It’s a combination of exercises, stretches and movements that’ll increase your strength, flexibility and mobility to help you move safely and more confidently.</p>
+                <button class="button button2">Show More.</button>
+            </div>
+            </div> <!-- .item -->
+
+            <div class="media-29101 d-md-flex w-100">
+            <div class="img">
+                <img src="{%static 'images/needs.jpg'%}" alt="Image" class="img-fluid">
+            </div>
+            <div class="text">
+                <a class="category d-block mb-4" href="#">Special_Needs &mdash; Care</a>
+                <h2><a href="#">Special Needs</a></h2>
+                <p>special needs meaning: In clinical diagnostic and functional development, special needs (or additional needs) refers to individuals who require assistance for disabilities that may be medical, mental, or psychological. Guidelines for clinical diagnosis are given in both the Diagnostic and Statistical Manual of Mental Disorders and the International Classification of Diseases 9th edition.</p>
+                <button class="button button2">Show More.</button>
+            </div>
+            </div> <!-- .item -->
+
         
-    <button class="click" onclick="myFunction1()">Show more</button>
-    
-    <div class="para" id="home-nurse">
-    Home nursing care is health care or supportive care provided by a professional caregiver in the individual home where the patient or client is living, as opposed to care provided in group accommodations like clinics or nursing home. 
-    9 Reasons to Consider Home Nursing Care :
-    <ul class="list">
-        <li>Round the Clock Presence</li>
-        <li>Supports a healthy daily routine</li>
-        <li>Experienced Home Patient Care Services</li>
-        <li>Constant Check on Nutrition and Diet</li>
-        <li>Medication Management</li>
-        <li>Healthy Social Interaction</li>
-        <li>Better Medical Outcomes</li>
-        <li>Focus on One-on-one Support</li>
-        <li>Affordable Choice</li>
-        </ul>
-    <img class="imgs" src="{% static 'images/nurse.jpg' %}" alt="Home nursing care" height="420" width="420">
-    </div>
-    
-    <script>
-    function myFunction1() 
-    {
-        var x = document.getElementById("home-nurse");
-        if (x.style.display === "none") {
-        x.style.display = "block";
-        } else {
-        x.style.display = "none";
-        }
-    }
-    </script>
-    <p>Physical Therapy </p>
-    
-    <button class="click" onclick="myFunction2()">Show more</button>
-    
-    <div class="para" id="phys-therapy">
-    Physical therapy is a common treatment that can help you recover after an injury or surgery, or manage symptoms from a health condition that affects how you move. It’s a combination of exercises, stretches and movements that’ll increase your strength, flexibility and mobility to help you move safely and more confidently.
-    <img class="imgs" src="{% static 'images/therapy.jpg' %}" alt="Physical Therapy " height="420" width="420">
-    </div>
-    
-    <script>
-    function myFunction2() 
-    {
-        var x = document.getElementById("phys-therapy");
-        if (x.style.display === "none") {
-        x.style.display = "block";
-        } else {
-        x.style.display = "none";
-        }
-    }
-    </script>
-    <p>Special Needs </p>
-    
-    <button class="click" onclick="myFunction3()">Show more</button>
-    
-    <div class="para" id="special-needs" >
-    special needs meaning: In clinical diagnostic and functional development, special needs (or additional needs) refers to individuals who require assistance for disabilities that may be medical, mental, or psychological. Guidelines for clinical diagnosis are given in both the Diagnostic and Statistical Manual of Mental Disorders and the International Classification of Diseases 9th edition.
-    <img  class="imgs" src="{% static 'images/needs.jpg '%}" alt="Physical Therapy " height="420" width="420">
-    </div>
-    
-    <script>
-    function myFunction3() 
-    {
-        var x = document.getElementById("special-needs");
-        if (x.style.display === "none") {
-        x.style.display = "block";
-        } else {
-        x.style.display = "none";
-        }
-    }
-    </script>
-    <footer class="container-footer">
-        <div class="footerup">
-                
-            <div>
-                <p ><a href="#">content</a></p>
-                <p ><a href="#">about us</a></p>
-                <p ><a href="#">our services</a></p>
-                <p ><a href="#">career</a></p>
-            </div>
-            <div>
-                <p>api</p>
-            </div>
+
         </div>
-        <div>
-        <p class="float-end"><a href="#">Back to top</a></p>
-        <p>&copy; 2017–2024 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
         </div>
-    </footer>
-</body>
-</html>
+    </div>
+    
+    
+
+    <script src="{% static 'js/jquery-3.3.1.min.js'%}"></script>
+    <script src="{%static 'js/popper.min.js'%}"></script>
+    <script src="{%static 'js/bootstrap.min.js'%}"></script>
+    <script src="{%static 'js/owl.carousel.min.js'%}"></script>
+    <script src="{%static 'js/main.js'%}"></script>
+{%endblock%}
