@@ -17,6 +17,7 @@ background-color: #f6a4c3;
 /* Carousel base class */
 .login-flex{
     background-color: beige;
+    width: fit-content;
     
 }
 .carousel {
