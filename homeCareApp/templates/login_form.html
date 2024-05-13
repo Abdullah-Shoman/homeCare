@@ -19,16 +19,25 @@
                     </div>
                     <div class="right-content">
                         <h3 class="form-title">Login</h3>
-                        <form class="form-horizontal">
+                        <form action="/login_form" method="post" class="form-horizontal">
+                            {% csrf_token %}
+                            <ul>
+                                {% for message in messages %}
+                                    
+                                    {% if 'login_error' in message.extra_tags %}
+                                        <li>{{message}}</li>
+                                    {% endif %}
+                                
+                                {% endfor %}
                             <div class="form-group">
                             <label>Email</label>
-                                <input type="email" class="form-control" >
+                                <input type="email" class="form-control" name="registered_email" >
                             </div>
                             <div class="form-group">
                             <label>Password</label>
-                                <input type="password" class="form-control">
+                                <input type="password" class="form-control" name="registered_password">
                             </div>
-                            <button class="btn signin">Login</button>
+                            <input type="submit" value="Signin" class="btn signin">
                             <div class="remember-me">
                                 <input type="checkbox" class="checkbox">
                                 <span class="check-label">Remember Me</span>

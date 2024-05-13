@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User as auth_user
 import re
 
 # Create your models here.
@@ -25,6 +26,14 @@ class UserManager(models.Manager):
         if not postData['form_password'] == postData['form_confirm_pw']:
             errors['confirm_password'] = 'Confirm Password not match Password'
         return errors
+    
+    def basic_validator_login(self,postData):
+        errors = {}
+        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+        if not EMAIL_REGEX.match(postData['registered_email']):
+            errors['email'] = 'Invalid Email Address!'
+        return errors
+    
 
 class User(models.Model):
     first_name = models.CharField(max_length = 45)
@@ -36,3 +45,33 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
 
+
+
+#  ------------  CRAD User -----------  #
+def create_user(postData,password):
+    user_first_name = postData['form_first_name']
+    user_last_name = postData['form_last_name']
+    user_email = postData['form_email']
+    user_phone_number = postData['form_phone_number']
+    user_password = password
+    User.objects.create(first_name = user_first_name,
+                        last_name = user_last_name,
+                        email = user_email,
+                        password = user_password,
+                        phone_number = user_phone_number)
+    auth_user.objects.create(password = user_password,
+                            is_superuser = False ,
+                            username = user_first_name ,
+                            last_name = user_last_name,
+                            email = user_email,
+                            is_staff = False ,
+                            is_active = True,
+                            first_name = user_first_name)
+    
+def get_user_by_email(postData):
+    registered_user = User.objects.filter(email = postData['registered_email'])
+    return registered_user
+
+def get_user_by_id(user_id):
+    user = User.objects.get(id = user_id)
+    return user
