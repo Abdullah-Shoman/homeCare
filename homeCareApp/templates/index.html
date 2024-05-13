@@ -54,19 +54,20 @@
                         </div>
                     </div>
                     <div class="col-2 d-flex justify-content-end">
-                        {%if user.is_authenticated %}
+                        {%if user.is_authenticated  or user.first_name %}
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{user.username}}
+                                    {{user.first_name}}
                                 </button>
                                 <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/profile">Profile</a></li>
                                     <li><a class="dropdown-item" href="/logout">Logout</a></li>
                                 </ul>
                             </div>
                         {%else %}
                             <a href="/login"><button class="btn btn-light">login</button></a>
                         {% endif %}
-                        
                     </div>
                 </div>
             </nav>
@@ -93,4 +94,3 @@
         </footer>
     </body>
 </html>
-
