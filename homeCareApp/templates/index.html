@@ -54,11 +54,11 @@
                         </div>
                     </div>
                     <div class="col-2 d-flex justify-content-end">
-                        {%if user.is_authenticated  or user.first_name %}
+                        {%if user.is_authenticated  or request.session.user_name %}
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{user.username}}
-                                    {{user.first_name}}
+                                    {{request.session.user_name}}
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="/profile">Profile</a></li>

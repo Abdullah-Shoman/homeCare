@@ -1,0 +1,76 @@
+{%extends 'index.html'%}
+{% load static %}
+{% block extraHeadTag%}
+
+    <link rel="stylesheet" href="{% static 'css/log_reg_style.css' %}">
+    <script src="{%static 'js/registration.js'%}"></script>
+
+{% endblock %}
+
+{% block content%}
+<div class="form-bg">
+    <div class="container">
+        <div class="row m-5 p-5">
+            <div class="col-md-offset-12 col-md-12 col-sm-offset-3 col-sm-6">
+                <div class="form-container">
+                    <div class="left-content">
+                        <h3 class="title">Home Nursin Care</h3>
+                        <h4 class="sub-title">Enhancing life, excelling in care.</h4>
+                    </div>
+                    <div class="right-content">
+                        <h3 class="form-title">Complite Your Registration</h3>
+                        <form action="{%url 'reg' %}" method="post" class="form-horizontal" id="form">
+                            {% csrf_token %}
+                            <ul>
+                                {% for message in messages %}
+                                    
+                                    {% if 'registration_error' in message.extra_tags %}
+                                        <li>{{message}}</li>
+                                    {% endif %}
+                                
+                                {% endfor %}
+                            </ul>
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" name="form_first_name" value="{{user.first_name}}" >
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" name="form_last_name" value="{{user.last_name}}">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-control" name="form_email" value="{{user.email}}">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" class="form-control" name="form_phone_number" supplier_phone_number" id="id_supplier_phone_number" maxlength="10" placeholder="059-970-7646" onkeypress="return isNumber(event)">
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control" name="form_password">
+                            </div>
+                            <div class="form-group">
+                                <label>Confirme Password</label>
+                                <input type="password" class="form-control" name="form_confirm_pw">
+                            </div>
+                            <input type="submit" class="btn signin" value="sign up">
+                            <div class="remember-me">
+                                <input type="checkbox" class="checkbox">
+                                <span class="check-label">Remember Me</span>
+                            </div>
+                            <a href="" class="forgot">Forgot Password</a>
+                        </form>
+                        <span class="separator">OR</span>
+                        <ul class="social-links">
+                            <li><a href=""><i class="fab fa-google"></i> Login with Google</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{%endblock%}

@@ -1,0 +1,91 @@
+{%extends 'index.html'%}
+{% load static %}
+{% block extraHeadTag%}
+
+    <link rel="stylesheet" href="{% static 'css/profile_style.css' %}">
+
+{% endblock %}
+
+{%block content%}
+<div class="container-xl px-4 mt-4">
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Change password card-->
+            <div class="card mb-4">
+                <div class="card-header">Profile information</div>
+                <div class="card-body">
+                    <form action="/edit_profile" method="post">
+                        {% csrf_token %}
+                            <ul>
+                                {% for message in messages %}
+                                    
+                                    {% if 'edit_error' in message.extra_tags %}
+                                        <li>{{message}}</li>
+                                    {% endif %}
+                                
+                                {% endfor %}
+                        <div class="mb-3">
+                            <label class="small mb-1" for="first_name">First Name</label>
+                            <input class="form-control" name="form_first_name" type="text" value="{{user.first_name}}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="small mb-1" for="last_name">Last Name</label>
+                            <input class="form-control" name="form_last_name" type="text" value="{{user.last_name}}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="small mb-1" for="email">Email</label>
+                            <input class="form-control" name="form_email" type="text" value="{{user.email}}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="small mb-1" for="form_phone_numebr">Phone Number</label>
+                            <input class="form-control" name="form_phone_number" type="text" value="{{user.phone_number}}">
+                        </div>
+                        <!-- Form Group (current password)-->
+                        <div class="mb-3">
+                            <label class="small mb-1" for="currentPassword">Current Password</label>
+                            <input class="form-control"  type="password" placeholder="Enter current password" name="current_password">
+                        </div>
+                        <!-- Form Group (new password)-->
+                        <div class="mb-3">
+                            <label class="small mb-1" for="newPassword">New Password</label>
+                            <input class="form-control" id="newPassword" type="password" placeholder="Enter new password" name="form_password">
+                        </div>
+                        <!-- Form Group (confirm password)-->
+                        <div class="mb-3">
+                            <label class="small mb-1" for="confirmPassword">Confirm Password</label>
+                            <input class="form-control" id="confirmPassword" type="password" placeholder="Confirm new password" name="form_confirm_pw">
+                        </div>
+                        <input type="submit" value="Save" class="btn btn-primary">
+                    </form>
+                </div>
+            </div>
+            <!-- Security preferences card-->
+            <div class="card mb-4">
+                <div class="card-header">Services</div>
+                <div class="card-body">
+                    <!-- Account privacy optinos-->
+                    <h5 class="mb-1">Services</h5>
+                    <p class="small text-muted">By setting your account to private, your profile information and posts will not be visible to users outside of your user groups.</p>
+                    <hr class="my-4">
+                    <!-- Data sharing options-->
+                    <h5 class="mb-1">Carrer</h5>
+                    <p class="small text-muted">Sharing usage data can help us to improve our products and better serve our users as they navigation through our application. When you agree to share usage data with us, crash reports and usage analytics will be automatically sent to our development team for investigation.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <!-- Delete account card-->
+            <div class="card mb-4">
+                <div class="card-header">Delete Account</div>
+                <div class="card-body">
+                    <p>Deleting your account is a permanent action and cannot be undone. If you are sure you want to delete your account, select the button below.</p>
+                    <form action="/delete_user" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="I understand, delete my account" class="btn btn-danger">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
