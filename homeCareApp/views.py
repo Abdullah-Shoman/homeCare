@@ -4,6 +4,7 @@ from . import models
 from django.contrib import messages
 import bcrypt
 from django.contrib.auth.models import User as auth_user
+from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
@@ -53,7 +54,7 @@ def login_form(request):
 def registration_page(request):
     return render(request,'registration_form.html')
 
-
+# here need update!!!!!!!!!!!!
 def registration_form(request):
     if request.method == 'POST':
         # validation form
@@ -61,7 +62,10 @@ def registration_form(request):
         if len(register_error) > 0:
             for key, value in register_error.items():
                 messages.error(request, value,extra_tags='registration_error')
-            return redirect('/registration')
+                # here need update!!!!!!!!!!!!
+            # return redirect('/registration')
+            data = 'error'
+            return HttpResponse(data)
         print('good')
         # hash password using bcrypt 
         password = request.POST['form_password']

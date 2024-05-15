@@ -7,25 +7,29 @@ function isNumber(evt) {
     return true;
 }
 
-// $(document).ready(function(){
-//     $('form').submit(function(e){
-//         e.preventDefault()
-//         console.log('hi')
-//         $.ajax({
-//             url: '/reg',
-//             method: 'post',
-//             data: $('#form').serialize(),
-//             success: function(data){
-//                 $('.error').html("data");
-                
-//             },
-//             error: function(data){
-//                 // console.log('hi2')
-//                 // alert(data.responseJSON);
+$(document).ready(function(){
+    alert("hello project")
+    $('form').submit(function(e){
+        e.preventDefault()
+        console.log('hi')
+        $.ajax({
+            url: '/registration_form',
+            method: 'post',
+            data: $('form').serialize(),
+            success: function(data){
+                if(data == 'error'){
+                    $('h3').html(data)
+                }else{
+                    location.href = "/"
+                }
+            },
+            error: function(data){
+                // console.log('hi2')
+                // alert(data.responseJSON);
             
-//             }
-//         })
+            }
+        })
         
-//     })
-// });
+    })
+});
 
