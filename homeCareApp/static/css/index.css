@@ -243,17 +243,6 @@ margin: 5rem 0; /* Space out the Bootstrap <hr> more */
     }
     
 }
-.container-footer { 
-    display:block;
-    background-color:  #f6a4c3;
-    height: 200px;
-    box-shadow: 5px 5px 5px black;
-}
-.footerup{
-    display: flex;
-    justify-content: space-between ;
-}
-
 
 .cover-img{
     width: 100%;
