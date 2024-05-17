@@ -8,7 +8,7 @@ function isNumber(evt) {
 }
 
 $(document).ready(function(){
-    alert("hello project")
+    // alert("hello project")
     $('form').submit(function(e){
         e.preventDefault()
         console.log('hi')

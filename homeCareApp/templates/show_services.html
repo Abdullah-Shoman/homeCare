@@ -1,0 +1,17 @@
+{%extends 'index.html'%}
+{% load static %}
+{% block extraHeadTag%}
+
+{% endblock %}
+
+{%block content%}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form action="">
+                {{form.as_p}}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

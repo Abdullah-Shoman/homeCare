@@ -4,7 +4,8 @@ from . import models
 from django.contrib import messages
 import bcrypt
 from django.contrib.auth.models import User as auth_user
-from django.http import HttpResponse
+from django.http import HttpResponse , JsonResponse
+from . import forms
 
 # Create your views here.
 def index(request):
@@ -63,9 +64,9 @@ def registration_form(request):
             for key, value in register_error.items():
                 messages.error(request, value,extra_tags='registration_error')
                 # here need update!!!!!!!!!!!!
-            # return redirect('/registration')
-            data = 'error'
-            return HttpResponse(data)
+            return redirect('/registration')
+            # data = 'error'
+            # return HttpResponse(data)
         print('good')
         # hash password using bcrypt 
         password = request.POST['form_password']
@@ -79,13 +80,110 @@ def registration_form(request):
         return redirect(service)
     return redirect('/')
 
-def service_form_page(request):
-    return render(request,'service_form.html')
+def service_form_page(request,type_service):
+    if 'user_id' in request.session:
+        if type_service == 1 :
+            print("h1")
+            form = forms.services_form()
+            form.fields.pop('time')
+            context = {
+                'form' : form,
+                'key' : 1
+            }
+            if request.method == 'POST':
+                print('request')
+                form = forms.services_form(request.POST)
+                form.fields.pop('time')
+                context['form'] = form
+                print('create form')
+                if form.is_valid():
+                    data = {
+                    'service_type':form.cleaned_data.get('service_type'),
+                    'name_patient' : form.cleaned_data.get('name_patient'),
+                    'age' :form.cleaned_data.get('age'),
+                    'gender' : form.cleaned_data.get('gender'),
+                    'city' : form.cleaned_data.get('city'),
+                    'location':form.cleaned_data.get('location'),
+                    'email' :form.cleaned_data.get('email'),
+                    'phone_number':form.cleaned_data.get('phone_number'),
+                    'start_date' : form.cleaned_data.get('start_date'),
+                    'period' : form.cleaned_data.get('period'),
+                    'time' : '00:00',
+                    'user': models.get_user_by_id(request.session['user_id'])
+                }
+                    models.create_service(data)
+                    return redirect('/')
+                return JsonResponse({'error': True, 'message': form.errors.as_json(escape_html=True) })
+            return render(request,'service_form.html',context)
+        if type_service == 3:
+            form = forms.services_form(initial={'service_type':'Speical Needs'})
+            form.fields.pop('time')
+            context = {
+                'form' : form,
+                'key' : 3
+            }
+            if request.method == 'POST':
+                print('request')
+                form = forms.services_form(request.POST)
+                form.fields.pop('time')
+                context['form'] = form
+                if form.is_valid():
+                    data = {
+                    'service_type':form.cleaned_data.get('service_type'),
+                    'name_patient' : form.cleaned_data.get('name_patient'),
+                    'age' :form.cleaned_data.get('age'),
+                    'gender' : form.cleaned_data.get('gender'),
+                    'city' : form.cleaned_data.get('city'),
+                    'location':form.cleaned_data.get('location'),
+                    'email' :form.cleaned_data.get('email'),
+                    'phone_number':form.cleaned_data.get('phone_number'),
+                    'start_date' : form.cleaned_data.get('start_date'),
+                    'period' : form.cleaned_data.get('period'),
+                    'time' : " 00:00",
+                    'user': models.get_user_by_id(request.session['user_id'])
+                }
+                    models.create_service(data)
+                    return redirect('/')
+                return JsonResponse({'error': True, 'message': form.errors.as_json(escape_html=True) })
+            return render(request,'service_form.html',context)
+        
+        if type_service == 2:
+            form = forms.services_form(initial={'service_type' : "Physical Therapy"})
+            form.fields.pop('period')
+            context = {
+                'form' : form,
+                'key': 2
+            }
+            if request.method == 'POST':
+                form = forms.services_form(request.POST)
+                context['form'] = form
+                if form.is_valid():
+                    data = {
+                    'service_type':form.cleaned_data.get('service_type'),
+                    'name_patient' : form.cleaned_data.get('name_patient'),
+                    'age' :form.cleaned_data.get('age'),
+                    'gender' : form.cleaned_data.get('gender'),
+                    'city' : form.cleaned_data.get('city'),
+                    'location':form.cleaned_data.get('location'),
+                    'email' :form.cleaned_data.get('email'),
+                    'phone_number':form.cleaned_data.get('phone_number'),
+                    'start_date' : form.cleaned_data.get('start_date'),
+                    'period' : ' ',
+                    'time' : form.cleaned_data.get('time'),
+                    'user': models.get_user_by_id(request.session['user_id'])
+                }
+                    models.create_service(data)
+                    return redirect('/')
+                return JsonResponse({'error': True, 'message': form.errors.as_json(escape_html=True) })
+            return render(request,'service_form.html',context)
+    return redirect('/')
+
 
 def profile(request):
     if 'user_id' in request.session:
         context = {
             'user': models.get_user_by_id(request.session['user_id'])
+            
         }
         return render(request,'profile.html',context)
     elif auth_user.is_authenticated:
@@ -123,3 +221,18 @@ def delete_user(request):
         logout_view(request)
         return redirect('/')
     return redirect(profile)
+
+def delete_service(request,service_id):
+    if 'user_id' in request.session:
+        models.delete_service(service_id)
+        return redirect(profile)
+    return redirect('/')
+
+def carrer_page(request):
+    return render(request,'carrer.html')
+
+# def show_service_info(request):
+#     if 'user_id' in request.session:
+#         form = models.service_model_form()
+
+#         return render(request,'')

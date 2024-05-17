@@ -65,7 +65,16 @@
                 <div class="card-body">
                     <!-- Account privacy optinos-->
                     <h5 class="mb-1">Services</h5>
-                    <p class="small text-muted">By setting your account to private, your profile information and posts will not be visible to users outside of your user groups.</p>
+                    
+                    <p class="small text-muted d-flex">
+                        <ul class="d-flex justify-content-between">
+                            {% for service in user.services.all %}	
+                            <li><em>{{service.service_type}} for {{service.patient_name}}</em></li>
+                                <a href="/delete_service/{{service.id}}"> <button class="btn btn-danger">Delete Services</button></a>
+                            {% endfor %}
+                        </ul>
+
+                    </p>
                     <hr class="my-4">
                     <!-- Data sharing options-->
                     <h5 class="mb-1">Carrer</h5>

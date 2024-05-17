@@ -1,6 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User as auth_user
 import re
+from django.forms import ModelForm, DateField 
+from django import forms
+
+GENDER_CHOICES = (
+    ('male','Male'),
+    ('female','Female')
+)
+CHOICES_PERIOD = (
+    ('8:00 AM to 16:00 PM','8:00 AM to 16:00 PM'),
+    ('16:00 PM to 12:00 AM','16:00 PM to 12:00 AM'),
+    ('12:00 AM to 8:00 AM','12:00 AM to 8:00 AM')
+)
 
 # Create your models here.
 class UserManager(models.Manager):
@@ -48,6 +60,36 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
 
+class Services(models.Model):
+    service_choices = [
+        ('Home Nursing','Home Nursing'),
+        ('Physical Therapy','physical Therapy'),
+        ('Speical Needs', 'Special Needs') 
+    ]
+    service_type = models.CharField(max_length = 45,choices=service_choices)
+    patient_name= models.CharField(max_length=45)
+    age = models.IntegerField()
+    gender = models.CharField(max_length=10, choices= GENDER_CHOICES)
+    city = models.CharField(max_length=45)
+    location = models.CharField(max_length=45)
+    email = models.EmailField()
+    phone_number = models.IntegerField()
+    start_date = models.DateField()
+    period = models.CharField(max_length=45,choices= CHOICES_PERIOD)
+    time = models.TimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User,related_name='services',on_delete=models.CASCADE)
+
+class Carrer_Job(models.Model):
+    job_description = models.TextField()
+    responsibilities = models.TextField()
+    qualifications = models.TextField()
+    experiances = models.TextField()
+    more_description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User,related_name='carrer_jobs',on_delete=models.CASCADE)
 
 
 #  ------------  CRAD User -----------  #
@@ -96,3 +138,39 @@ def edit_user(postData,password,user_id):
 def delete_user(user_id):
     del_user = get_user_by_id(user_id)
     del_user.delete()
+
+def create_service(data):
+
+    Services.objects.create(
+        service_type = data['service_type'],
+        patient_name= data['name_patient'],
+        age = data['age'],
+        gender = data['gender'],
+        city = data['city'],
+        location = data['location'],
+        email = data['email'],
+        phone_number = data['phone_number'],
+        start_date = data['start_date'],
+        period = data['period'],
+        time = data['time'],
+        user = data['user']
+        )
+    
+def delete_service(service_id):
+    service = Services.objects.get(id =service_id)
+    service.delete()
+
+
+
+class service_model_form(ModelForm):
+    class Meta:
+        model = Services
+        fields = "__all__"
+        exclude = ["user"]
+        widgets = {
+            'gender': forms.RadioSelect,
+            'email' : forms.EmailInput,
+            'period' : forms.RadioSelect,
+            'start_date':forms.DateInput(attrs={'type':"date"}),
+            'time':forms.TimeInput(attrs={"type": "time"})
+        }
