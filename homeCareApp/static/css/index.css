@@ -307,3 +307,9 @@ margin: 5rem 0; /* Space out the Bootstrap <hr> more */
 .cover-image{
     width: 100%
 }
+
+
+#container-footer{
+    height: auto;
+
+}
