@@ -2,15 +2,60 @@
 
 
 {%block extraHeadTag%}
+    <style>
+        .error{
+            color: red;
+        }
+    </style>
 {%endblock%}
 
 
 {%block content%}
 <div class="container">
     <div class="row">
-        <div class="col">
-            <h1>Services Form</h1>
+        <div class="col p-5 m- 5">
+            <form action="/service_form/{{key}}" method="post">
+                <ul class="error">
+
+                </ul>
+                {% csrf_token %}
+                {{form.as_div}}
+                <input type="submit" value="Ask for Service" class="btn btn-primary m-3">
+            </form>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        $('form').submit(function(e){
+            e.preventDefault()
+            console.log('hi')
+            $.ajax({
+                url: '/service_form/{{key}}',
+                method: 'post',
+                data: $('form').serialize(),
+                success: function(data){
+                    // $('.error').remove()
+                    if (data.hasOwnProperty('error')) {
+                        if (data.error==true) {
+                        // alert(data.message);
+                        // console.log(data.message)
+                        x = JSON.parse(data.message)
+                        // console.log(JSON.parse(data.message))
+                        for(const key in x){
+                            console.log(x[key][0].message)
+                            // $('.error').html(x[key][0].message)
+                            $('.error').append("<li>"+x[key][0].message +" </li>")
+                        }
+
+                        }
+                    }else{
+                        location.href = '/'
+                    }
+                }
+            })
+            
+        })
+    });
+</script>
 {%endblock%}
